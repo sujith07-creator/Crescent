@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crescent Design — Design Module & Production Management</title>
+  <meta name="description" content="Internal enterprise project management and drawing production board for Crescent Design, strictly implementing detailed.md specifications.">
+
+  <!-- Google Fonts: Outfit (headings), Plus Jakarta Sans (UI body), JetBrains Mono (codes & metrics) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div id="app-root">
+    <!-- App Sidebar Navigation -->
+    <aside class="app-sidebar" aria-label="Main Navigation">
+      <div class="brand-header">
+        <div class="brand-logo-icon">C</div>
+        <div class="brand-text">
+          <span class="brand-title">CRESCENT</span>
+          <span class="brand-subtitle">Design Module</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <!-- Primary Dashboard -->
+        <div class="nav-section-label">Executive Overview</div>
+        <div class="nav-item" data-route="#/dashboard">
+          <span class="nav-icon">📊</span>
+          <span>D-S-18 Dashboard</span>
+        </div>
+
+        <!-- Group 1: Enquiry to Confirmation Journey -->
+        <div class="nav-section-label">Enquiry to Confirmation</div>
+        <div class="nav-item active" data-route="#/enquiries">
+          <span class="nav-icon">📋</span>
+          <span>D-S-01 Enquiry Board</span>
+        </div>
+        <div class="nav-item" data-route="#/quotation-reviews">
+          <span class="nav-icon">💰</span>
+          <span>D-S-06 Quotation Review</span>
+          <span class="nav-badge warning" id="nav-badge-quotes"></span>
+        </div>
+        <div class="nav-item" data-route="#/project-creation-approvals">
+          <span class="nav-icon">🛡️</span>
+          <span>D-S-08 Project Setup Approval</span>
+          <span class="nav-badge warning" id="nav-badge-prjs"></span>
+        </div>
+
+        <!-- Group 2: Production Drawing Board -->
+        <div class="nav-section-label">Drawing Production</div>
+        <div class="nav-item" data-route="#/projects">
+          <span class="nav-icon">🏗️</span>
+          <span>D-S-09 Projects List</span>
+        </div>
+        <div class="nav-item" data-route="#/drawing-board/prj-001">
+          <span class="nav-icon">📐</span>
+          <span>D-S-12 Drawing Board</span>
+          <span class="nav-badge alert" id="nav-badge-risk"></span>
+        </div>
+        <div class="nav-item" data-route="#/timeline/prj-001">
+          <span class="nav-icon">📊</span>
+          <span>D-S-14 Project Timeline / Gantt</span>
+        </div>
+        <div class="nav-item" data-route="#/rfis">
+          <span class="nav-icon">❓</span>
+          <span>D-S-15 RFI Log</span>
+          <span class="nav-badge" id="nav-badge-rfis"></span>
+        </div>
+
+        <!-- Group 3: Personal & Studio Workload Awareness -->
+        <div class="nav-section-label">Studio & Personal Views</div>
+        <div class="nav-item" data-route="#/my-tasks">
+          <span class="nav-icon">⚡</span>
+          <span>D-S-17 My Tasks (Architect)</span>
+        </div>
+        <div class="nav-item" data-route="#/project-dashboard/prj-001">
+          <span class="nav-icon">📈</span>
+          <span>D-S-18 Project Dashboard</span>
+        </div>
+        <div class="nav-item" data-route="#/studio-workload">
+          <span class="nav-icon">👥</span>
+          <span>D-S-19 Studio Workload</span>
+        </div>
+        <div class="nav-item" data-route="#/reports">
+          <span class="nav-icon">🎯</span>
+          <span>§15 Reports & KPIs</span>
+        </div>
+
+        <!-- Group 4: Master Data -->
+        <div class="nav-section-label">Administration</div>
+        <div class="nav-item" data-route="#/master-data">
+          <span class="nav-icon">⚙️</span>
+          <span>D-S-20 Master Data (6 Tabs)</span>
+        </div>
+
+        <div style="margin-top:20px; padding:0 12px;">
+          <button class="btn btn-outline btn-sm" id="btn-reset-seed" style="width:100%; font-size:11px; opacity:0.7;">
+            ↺ Reset to Seed Data
+          </button>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- App Main Content Surface -->
+    <main class="app-main">
+      <!-- App Header -->
+      <header class="app-header">
+        <div class="header-breadcrumbs">
+          <span class="breadcrumb-root">Crescent Design</span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-current" id="breadcrumb-current">D-S-01 · Enquiry Board</span>
+        </div>
+
+        <div class="header-actions">
+          <!-- Actor "Their One Number" Card Widget (§2) -->
+          <div class="actor-one-number-widget" id="actor-one-number-widget" title="Actor's Key Focus Metric as defined in §2">
+            <div class="one-number-val" id="one-number-val">0</div>
+            <div class="one-number-meta">
+              <span class="one-number-label" id="one-number-label">Pending</span>
+              <span class="one-number-subtext" id="one-number-subtext">Calculating live...</span>
+            </div>
+          </div>
+
+          <!-- Actor Role Switcher Pill (§2, §13) -->
+          <div class="role-switcher-container" title="Switch active perspective to test role permissions">
+            <button class="role-btn" data-role="COO">COO</button>
+            <button class="role-btn active" data-role="HOD">HOD</button>
+            <button class="role-btn" data-role="Architect">Architect</button>
+          </div>
+
+          <!-- User Profile Display -->
+          <div class="user-profile-badge">
+            <div class="user-avatar" id="user-avatar-initial">V</div>
+            <div class="user-info">
+              <span class="user-name" id="user-display-name">Ar. Vikramaditya Rao</span>
+              <span class="user-role-label" id="user-display-role">HOD · Head of Design</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Dynamic Content Container -->
+      <div class="page-container" id="main-content">
+        <!-- Rendered by js/app.js router -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Global Modal Root -->
+  <div id="modal-root"></div>
+
+  <!-- Toast Notifications Root -->
+  <div id="toast-container"></div>
+
+  <!-- Application Bootstrap -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
